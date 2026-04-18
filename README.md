@@ -2,6 +2,10 @@
 
 Self-hosted web interface to manage WireGuard VPN server. Built using Next.js, SQLite and Docker.
 
+
+![Dashboard](assets/Dashboard.png)
+
+
 ## Overview
 
 WireGuard Manager is a web application for managing a WireGuard server where one can create/edit/enable/disable/delete clients, monitor connections with statistics of traffic usage and manage user accounts. The app runs together with the WireGuard service within a single Docker container and uses SQLite for state storage.
