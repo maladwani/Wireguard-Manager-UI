@@ -1,0 +1,20 @@
+FROM node:20-alpine
+
+WORKDIR /app
+
+RUN apk add --no-cache wireguard-tools bash iproute2 iptables
+
+COPY package.json package-lock.json ./
+COPY prisma ./prisma
+RUN npm ci
+
+COPY . .
+
+COPY docker/entrypoint.dev.sh ./entrypoint.dev.sh
+RUN chmod +x entrypoint.dev.sh
+
+EXPOSE 3000
+ENV PORT=3000
+ENV HOSTNAME="0.0.0.0"
+
+ENTRYPOINT ["./entrypoint.dev.sh"]

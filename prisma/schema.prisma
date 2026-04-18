@@ -1,0 +1,81 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id             String   @id @default(cuid())
+  name           String
+  email          String   @unique
+  hashedPassword String
+  role           String   @default("admin")
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+model VPNClient {
+  id                  String    @id @default(cuid())
+  name                String
+  email               String?
+  publicKey           String    @unique
+  privateKeyEncrypted String
+  presharedKey        String?
+  allowedIPs          String
+  address             String
+  dns                 String?
+  endpoint            String?
+  dataUsage           BigInt    @default(0)
+  expiresAt           DateTime?
+  enabled             Boolean   @default(true)
+  lastHandshake       DateTime?
+  lastEndpoint        String?
+  isOnline            Boolean   @default(false)
+  createdAt           DateTime  @default(now())
+  updatedAt           DateTime  @updatedAt
+
+  logs ConnectionLog[]
+}
+
+model ConnectionLog {
+  id        String   @id @default(cuid())
+  clientId  String?
+  event     String
+  ipAddress String?
+  details   String?
+  createdAt DateTime @default(now())
+
+  client VPNClient? @relation(fields: [clientId], references: [id], onDelete: SetNull)
+
+  @@index([clientId])
+  @@index([createdAt])
+}
+
+model BandwidthLog {
+  id        String   @id @default(cuid())
+  rx        BigInt   @default(0)
+  tx        BigInt   @default(0)
+  createdAt DateTime @default(now())
+
+  @@index([createdAt])
+}
+
+model Setting {
+  key       String   @id
+  value     String
+  updatedAt DateTime @updatedAt
+}
+
+model LoginAttempt {
+  id        String   @id @default(cuid())
+  email     String
+  ipAddress String
+  success   Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  @@index([email, createdAt])
+  @@index([ipAddress, createdAt])
+}
