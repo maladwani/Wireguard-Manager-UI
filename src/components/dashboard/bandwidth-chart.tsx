@@ -40,7 +40,7 @@ function CustomTooltip({ active, payload, label, downloadLabel, uploadLabel }: {
       <p className="text-sm font-medium mb-1">{label}</p>
       {payload.map((entry) => (
         <p key={entry.dataKey} className="text-sm" style={{ color: entry.color }}>
-          {entry.dataKey === "rx" ? downloadLabel : uploadLabel}: {formatBytes(entry.value)}
+          {entry.dataKey === "tx" ? downloadLabel : uploadLabel}: {formatBytes(entry.value)}
         </p>
       ))}
     </div>
@@ -118,7 +118,7 @@ export function BandwidthChart({
               <Tooltip content={<CustomTooltip downloadLabel={t("dashboard.download")} uploadLabel={t("dashboard.upload")} />} />
               <Area
                 type="monotone"
-                dataKey="rx"
+                dataKey="tx"
                 stroke="oklch(0.55 0.18 260)"
                 fill="url(#rxGradient)"
                 strokeWidth={2}
@@ -126,7 +126,7 @@ export function BandwidthChart({
               />
               <Area
                 type="monotone"
-                dataKey="tx"
+                dataKey="rx"
                 stroke="oklch(0.65 0.15 160)"
                 fill="url(#txGradient)"
                 strokeWidth={2}

@@ -49,13 +49,13 @@ export function StatCards({
     },
     {
       title: t("dashboard.download"),
-      value: formatBytes(totalRx),
+      value: formatBytes(totalTx),
       icon: ArrowDownToLine,
       description: t("dashboard.totalReceived"),
     },
     {
       title: t("dashboard.upload"),
-      value: formatBytes(totalTx),
+      value: formatBytes(totalRx),
       icon: ArrowUpFromLine,
       description: t("dashboard.totalSent"),
     },
