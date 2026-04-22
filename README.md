@@ -3,7 +3,7 @@
 Self-hosted web interface to manage WireGuard VPN server. Built using Next.js, SQLite and Docker.
 
 
-![Dashboard](assets/Dashboard.png)
+![Dashboard](assets/main-readme.png)
 
 
 ## Overview
